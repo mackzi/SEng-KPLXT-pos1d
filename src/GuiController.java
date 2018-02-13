@@ -28,6 +28,7 @@ public class GuiController implements Initializable{
     private void updateParams(double a, double b){
         plot.clear();
         yAxis.setUpperBound(Math.round(a*100));
+        yAxis.setTickUnit(Math.round(a * 10));
         plot.plotLine(x -> a * Math.pow(x, 2) + Math.cos(Math.PI * x) - b * Math.sin(2 * Math.PI * x) + Math.cos(3 * Math.PI * x) * Math.sin(Math.PI * x));
     }
 
