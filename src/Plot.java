@@ -1,10 +1,12 @@
 import javafx.scene.chart.XYChart;
+
 import java.util.function.Function;
 
-public class Plot {
-    private XYChart<Double, Double> graph;
-    private double range;
-    public Plot(final XYChart<Double, Double> graph, final double range) {
+class Plot {
+    private final XYChart<Double, Double> graph;
+    private final double range;
+
+    Plot(final XYChart<Double, Double> graph, final double range) {
         this.graph = graph;
         this.range = range;
     }

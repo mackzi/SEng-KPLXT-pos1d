@@ -28,13 +28,13 @@ public class GuiController implements Initializable{
     private void updateParams(double a, double b){
         plot.clear();
         yAxis.setUpperBound(Math.round(a*100));
-        plot.plotLine(x-> a*Math.pow(x, 2)+Math.cos(Math.PI*x)-b*Math.sin(2*Math.PI*x)+Math.cos(3*Math.PI*x)*Math.sin(Math.PI*x));
+        plot.plotLine(x -> a * Math.pow(x, 2) + Math.cos(Math.PI * x) - b * Math.sin(2 * Math.PI * x) + Math.cos(3 * Math.PI * x) * Math.sin(Math.PI * x));
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         plot = new Plot(lineGraph, 10);
-        plot.plotLine(x-> 0.1*Math.pow(x, 2)+Math.cos(Math.PI*x)-2*Math.sin(2*Math.PI*x)+Math.cos(3*Math.PI*x)*Math.sin(Math.PI*x));
+        plot.plotLine(x -> 0.1 * Math.pow(x, 2) + Math.cos(Math.PI * x) - 2 * Math.sin(2 * Math.PI * x) + Math.cos(3 * Math.PI * x) * Math.sin(Math.PI * x));
 
         // Listen for Slider value changes
         sliderSwarmSize.valueProperty().addListener((observable, oldValue, newValue) -> labelSwarmSize.setText(Integer.toString(newValue.intValue())));
