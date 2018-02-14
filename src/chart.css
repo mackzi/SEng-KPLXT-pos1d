@@ -8,5 +8,5 @@
     -fx-background-color: transparent, transparent;
 }
 .default-color1.chart-line-symbol {
-    -fx-background-color: red;
+    -fx-background-color: red, red;
 }

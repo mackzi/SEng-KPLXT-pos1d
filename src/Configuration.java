@@ -9,8 +9,6 @@ public enum Configuration {
 
     double xLocationMinimum = -10;
     double xLocationMaximum = 10;
-    double yLocationMinimum = -5;
-    double yLocationMaximum = 300;
     double velocityMinimum = -1;
     double velocityMaximum = 1;
     double maximumErrorTolerance = 1E-20;

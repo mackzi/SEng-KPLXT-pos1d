@@ -26,12 +26,20 @@ public class GuiController implements Initializable{
     private ParticleSwarmOptimization pos;
     private Plot plot;
 
+    private void updateParams(double a, double b) {
+        plot.clear();
+        yAxis.setUpperBound(Math.round(sliderA.getValue() * 100));
+        yAxis.setTickUnit(Math.round(sliderA.getValue() * 10));
+        plot.plotLine(x -> a * Math.pow(x, 2) + Math.cos(Math.PI * x) - b * Math.sin(2 * Math.PI * x) + Math.cos(3 * Math.PI * x) * Math.sin(Math.PI * x));
+    }
+
     private void execute() {
         plot.clear();
         yAxis.setUpperBound(Math.round(sliderA.getValue() * 100));
         yAxis.setTickUnit(Math.round(sliderA.getValue() * 10));
 
         plot.plotLine(x -> sliderA.getValue() * Math.pow(x, 2) + Math.cos(Math.PI * x) - sliderB.getValue() * Math.sin(2 * Math.PI * x) + Math.cos(3 * Math.PI * x) * Math.sin(Math.PI * x));
+
         pos = new ParticleSwarmOptimization();
         Vector<Particle> swarm = pos.execute((int) sliderSwarmSize.getValue(), (int) sliderIterations.getValue(), sliderA.getValue(), sliderB.getValue());
         plot.plotSwarm(swarm, x -> sliderA.getValue() * Math.pow(x, 2) + Math.cos(Math.PI * x) - sliderB.getValue() * Math.sin(2 * Math.PI * x) + Math.cos(3 * Math.PI * x) * Math.sin(Math.PI * x));
@@ -46,24 +54,27 @@ public class GuiController implements Initializable{
         // Listen for Slider value changes
         sliderSwarmSize.valueProperty().addListener((observable, oldValue, newValue) -> {
             labelSwarmSize.setText(Integer.toString(newValue.intValue()));
-            execute();
+            //sliderIterations.setValue(0);
+            if (sliderIterations.getValue() != 0) execute();
         });
 
         sliderIterations.valueProperty().addListener((observable, oldValue, newValue) -> {
             labelIterations.setText(Integer.toString(newValue.intValue()));
-            execute();
+            if (newValue.intValue() != 0) execute();
         });
 
         sliderA.valueProperty().addListener((observable, oldValue, newValue) -> {
             labelA.setText(newValue.toString().substring(0,3));
-            execute();
-            //updateParams(sliderA.getValue(), sliderB.getValue());
+            sliderIterations.setValue(0);
+            //execute();
+            updateParams(sliderA.getValue(), sliderB.getValue());
         });
 
         sliderB.valueProperty().addListener((observable, oldValue, newValue) -> {
             labelB.setText(newValue.toString().substring(0, 3));
-            execute();
-            //updateParams(sliderA.getValue(), sliderB.getValue());
+            sliderIterations.setValue(0);
+            //execute();
+            updateParams(sliderA.getValue(), sliderB.getValue());
         });
     }
 }
