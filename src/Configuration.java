@@ -3,16 +3,10 @@ import java.text.DecimalFormat;
 public enum Configuration {
     instance;
 
-    //Params from gui
-    int swarmSize = 30;
-    int maximumNumberOfIterations = 100;
-
     double xLocationMinimum = -10;
     double xLocationMaximum = 10;
     double velocityMinimum = -1;
     double velocityMaximum = 1;
-    double maximumErrorTolerance = 1E-20;
-
 
     int dimensionOfProblem = 1;
     double c1 = 2.0;
@@ -21,5 +15,5 @@ public enum Configuration {
     double wLowerBound = 0.0;
 
     MersenneTwister randomGenerator = new MersenneTwister(System.currentTimeMillis());
-    DecimalFormat decimalFormat = new DecimalFormat("0.0000000000");
+    DecimalFormat decimalFormat = new DecimalFormat("0.00000000");
 }

@@ -1,30 +1,32 @@
 import java.util.Vector;
 
 public class ParticleSwarmOptimization {
+
     private Vector<Particle> swarm = new Vector<>();
-    private double[] bestParticles;
     private Vector<Location> bestParticleLocations = new Vector<>();
     private double globalBestParticle;
+
+    public Location getGlobalBestLocation() {
+        return globalBestLocation;
+    }
+
     private Location globalBestLocation;
     private double[] fitnessValueList;
 
     public Vector<Particle> execute(int swarmSize, int iterations, double a, double b) {
         ProblemSet function = new ProblemSet(a, b);
-        bestParticles = new double[swarmSize];
+        double[] bestParticles = new double[swarmSize];
         fitnessValueList = new double[swarmSize];
 
         initializeSwarm(swarmSize, function);
         updateFitnessList(swarmSize);
-
 
         for (int i = 0; i < swarmSize; i++) {
             bestParticles[i] = fitnessValueList[i];
             bestParticleLocations.add(swarm.get(i).getLocation());
         }
 
-
         double w;
-
 
         for (int n = 0; n < iterations; n++) {
             // step 1 - update bestParticles
@@ -41,7 +43,8 @@ public class ParticleSwarmOptimization {
                 globalBestLocation = swarm.get(bestParticleIndex).getLocation();
             }
 
-            w = Configuration.instance.wUpperBound - (((double) n) / iterations) * (Configuration.instance.wUpperBound - Configuration.instance.wLowerBound);
+            w = Configuration.instance.wUpperBound -
+                    (((double) n) / iterations) * (Configuration.instance.wUpperBound - Configuration.instance.wLowerBound);
 
             for (int i = 0; i < swarmSize; i++) {
                 double r1 = Configuration.instance.randomGenerator.nextDouble();
@@ -67,9 +70,6 @@ public class ParticleSwarmOptimization {
             updateFitnessList(swarmSize);
         }
 
-        System.out.println("\nsolution found at iteration " + (iterations) + ", the solutions is :");
-        System.out.println("     globalBestLocation(x) : " + Configuration.instance.decimalFormat.format(globalBestLocation.getLocations()[0]));
-
         return swarm;
     }
 
@@ -80,12 +80,14 @@ public class ParticleSwarmOptimization {
 
             // randomize location inside a space defined in problem set
             double[] newLocation = new double[Configuration.instance.dimensionOfProblem];
-            newLocation[0] = Configuration.instance.xLocationMinimum + Configuration.instance.randomGenerator.nextDouble() * (Configuration.instance.xLocationMaximum - Configuration.instance.xLocationMinimum);
+            newLocation[0] = Configuration.instance.xLocationMinimum +
+                    Configuration.instance.randomGenerator.nextDouble() * (Configuration.instance.xLocationMaximum - Configuration.instance.xLocationMinimum);
             Location location = new Location(newLocation);
 
             // randomize velocity in the range defined in problem set
             double[] newVelocity = new double[Configuration.instance.dimensionOfProblem];
-            newVelocity[0] = Configuration.instance.velocityMinimum + Configuration.instance.randomGenerator.nextDouble() * (Configuration.instance.velocityMaximum - Configuration.instance.velocityMinimum);
+            newVelocity[0] = Configuration.instance.velocityMinimum +
+                    Configuration.instance.randomGenerator.nextDouble() * (Configuration.instance.velocityMaximum - Configuration.instance.velocityMinimum);
             Velocity velocity = new Velocity(newVelocity);
 
             particle.setLocation(location);
