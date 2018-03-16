@@ -4,14 +4,12 @@
 
 public class ProblemSet {
 
-
-    double a, b;
+    private double a, b;
 
     public ProblemSet(double a, double b) {
         this.a = a;
         this.b = b;
     }
-
 
     public double evaluate(Location location) {
         double result;

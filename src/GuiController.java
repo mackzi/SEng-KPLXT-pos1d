@@ -40,12 +40,11 @@ public class GuiController implements Initializable{
         textArea.appendText("Best global minimum:");
     }
 
-    private boolean updatePlot() {
+    private void updatePlot() {
         plot.clear();
         yAxis.setUpperBound(Math.round(sliderA.getValue() * 100));
         yAxis.setTickUnit(Math.round(sliderA.getValue() * 10));
         plot.plotLine(function());
-        return true;
     }
 
     private void execute() {
